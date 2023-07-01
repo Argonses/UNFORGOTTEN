@@ -15,14 +15,28 @@
             </NavLink>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/chatHub">
-                <span class="oi oi-chat" aria-hidden="true"></span> Public Chat
-            </NavLink>
+            <AuthorizeView>
+                <Authorized>
+                    <NavLink class="nav-link" href="/chatHub">
+                        <span class="oi oi-chat" aria-hidden="true"></span> Public Chat
+                    </NavLink>
+                </Authorized>
+                <NotAuthorized>
+                    <span class="nav-link disabled">Log in to access Public Chat</span>
+                </NotAuthorized>
+            </AuthorizeView>
         </div>
         <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/postsPage">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Posts Page
-            </NavLink>
+            <AuthorizeView>
+                <Authorized>
+                    <NavLink class="nav-link" href="/postsPage">
+                        <span class="oi oi-list-rich" aria-hidden="true"></span> Posts Page
+                    </NavLink>
+                </Authorized>
+                <NotAuthorized>
+                    <span class="nav-link disabled">Log in to access Posts Page</span>
+                </NotAuthorized>
+            </AuthorizeView>
         </div>
     </nav>
 </div>

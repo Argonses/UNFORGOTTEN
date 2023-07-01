@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using UNFORGOTTEN.Server.Data;
 using UNFORGOTTEN.Server.Models;
 using Microsoft.AspNetCore.Identity;
+using UNFORGOTTEN.Server.Services.PostService;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,6 +26,12 @@ builder.Services.AddAuthentication()
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddScoped<IPostService, PostService>();
+
+// Configure Swagger
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 
 var app = builder.Build();
 
@@ -32,6 +40,9 @@ if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
     app.UseWebAssemblyDebugging();
+    app.UseSwagger();
+    app.UseSwaggerUI();
+    
 }
 else
 {
@@ -49,6 +60,7 @@ app.UseRouting();
 
 app.UseIdentityServer();
 app.UseAuthorization();
+app.UseAuthentication();
 
 
 app.MapRazorPages();

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using UNFORGOTTEN.Server.Models;
+using UNFORGOTTEN.Shared;
 
 namespace UNFORGOTTEN.Server.Data
 {
@@ -13,5 +14,7 @@ namespace UNFORGOTTEN.Server.Data
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
+
+        public DbSet<Post> Posts { get; set; }
     }
 }
