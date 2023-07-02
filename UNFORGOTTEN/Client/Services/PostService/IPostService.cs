@@ -1,10 +1,11 @@
 ﻿using UNFORGOTTEN.Shared;
 
-namespace UNFORGOTTEN.Server.Services.PostService
+namespace UNFORGOTTEN.Client.Services.PostService
 {
     public interface IPostService
     {
-        Task<List<Post>> GetPosts();
+        List<Post> Posts { get; set; }
+        Task GetPosts();
         Task<Post> AddPost(Post post);
     }
 }

@@ -1,0 +1,33 @@
+﻿@page "/addPage"
+@using UNFORGOTTEN.Shared;
+@inject NavigationManager NavigationManager
+@inject IPostService PostService
+
+<h3>AddPage</h3>
+
+<form method="post" @onsubmit="HandleSubmit">
+    <div class="form-group">
+        <label for="title">Title:</label>
+        <input id="title" class="form-control" type="text" @bind="@post.Title" />
+    </div>
+    <div class="form-group">
+        <label for="author">Author:</label>
+        <input id="author" class="form-control" type="text" @bind="@post.Author" />
+    </div>
+    <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea id="description" class="form-control" rows="4" @bind="@post.Description"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Post</button>
+</form>
+
+@code {
+    private Post post = new Post();
+
+    private async Task HandleSubmit()
+    {
+        await PostService.AddPost(post);
+
+        NavigationManager.NavigateTo("/postsPage");
+    }
+}

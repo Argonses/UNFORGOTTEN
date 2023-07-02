@@ -13,6 +13,13 @@ namespace UNFORGOTTEN.Server.Services.PostService
             _context = context;
         }
 
+        public async Task<Post> AddPost(Post post)
+        {
+            await _context.AddAsync(post);
+            await _context.SaveChangesAsync();
+            return post;
+        }
+
         public async Task<List<Post>> GetPosts()
         {
             var result = await _context.Posts.ToListAsync();

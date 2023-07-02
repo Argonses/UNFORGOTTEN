@@ -23,5 +23,12 @@ namespace UNFORGOTTEN.Server.Controllers
         {
             return await _service.GetPosts();
         }
+
+        [HttpPost]
+        public async Task<Post> AddPost(Post post)
+        {
+            await _service.AddPost(post);
+            return post;
+        }
     }
 }
