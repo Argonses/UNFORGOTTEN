@@ -6,6 +6,7 @@ using UNFORGOTTEN.Server.Models;
 using Microsoft.AspNetCore.Identity;
 using UNFORGOTTEN.Server.Services.PostService;
 using Microsoft.OpenApi.Models;
+using UNFORGOTTEN.Server.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,12 @@ builder.Services.AddAuthentication()
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddSignalR();
+builder.Services.AddResponseCompression(options =>
+    options.MimeTypes = ResponseCompressionDefaults
+    .MimeTypes
+    .Concat(new[] { "application/octet-stream" })
+);
 builder.Services.AddScoped<IPostService, PostService>();
 
 // Configure Swagger
@@ -65,6 +72,7 @@ app.UseAuthentication();
 
 app.MapRazorPages();
 app.MapControllers();
+app.MapHub<ChatHub>("/chatHub");
 app.MapFallbackToFile("index.html");
 
 app.Run();
