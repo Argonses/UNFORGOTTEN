@@ -16,5 +16,6 @@ namespace UNFORGOTTEN.Server.Data
         }
 
         public DbSet<Post> Posts { get; set; }
+        public DbSet<Photo> Photos { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using UNFORGOTTEN.Shared;
 
 namespace UNFORGOTTEN.Server.Models
 {
@@ -9,6 +10,5 @@ namespace UNFORGOTTEN.Server.Models
         public string NickName { get; set; } = string.Empty;
         public DateTime BornDate { get; set; }
         public string Country { get; set; } = string.Empty;
-
     }
 }
