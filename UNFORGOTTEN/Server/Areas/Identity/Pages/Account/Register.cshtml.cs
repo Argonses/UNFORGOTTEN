@@ -134,8 +134,46 @@ namespace UNFORGOTTEN.Server.Areas.Identity.Pages.Account
         {
             returnUrl ??= Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
             if (ModelState.IsValid)
             {
+                var birthDate = Input.BornDate;
+                var minimumAge = 15;
+                var today = DateTime.Today;
+                var age = today.Year - birthDate.Year;
+
+                if (birthDate.Date > today.AddYears(-age))
+                {
+                    age--;
+                }
+
+                if (age < minimumAge)
+                {
+                    ModelState.AddModelError(string.Empty, $"You must be at least {minimumAge} years old to register.");
+                    return Page();
+                }
+
+                var maxNameLength = 20;
+                var maxNicknameLength = 15;
+
+                if (Input.FirstName.Length > maxNameLength)
+                {
+                    ModelState.AddModelError(string.Empty, $"First name cannot exceed {maxNameLength} characters.");
+                    return Page();
+                }
+
+                if (Input.LastName.Length > maxNameLength)
+                {
+                    ModelState.AddModelError(string.Empty, $"Last name cannot exceed {maxNameLength} characters.");
+                    return Page();
+                }
+
+                if (Input.NickName.Length > maxNicknameLength)
+                {
+                    ModelState.AddModelError(string.Empty, $"Nick name cannot exceed {maxNicknameLength} characters.");
+                    return Page();
+                }
+
                 var user = new ApplicationUser
                 {
                     UserName = Input.Email,
@@ -147,8 +185,6 @@ namespace UNFORGOTTEN.Server.Areas.Identity.Pages.Account
                     Country = Input.Country
                 };
 
-                /*await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);*/
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
                 if (result.Succeeded)
@@ -177,15 +213,16 @@ namespace UNFORGOTTEN.Server.Areas.Identity.Pages.Account
                         return LocalRedirect(returnUrl);
                     }
                 }
+
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
-            }
 
-            // If we got this far, something failed, redisplay form
+            }
             return Page();
         }
+
 
         private ApplicationUser CreateUser()
         {
