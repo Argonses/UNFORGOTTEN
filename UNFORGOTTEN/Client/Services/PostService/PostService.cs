@@ -15,7 +15,10 @@ namespace UNFORGOTTEN.Client.Services.PostService
             _http = http;
         }
 
+        private string searchAuthor = string.Empty;
+
         public List<Post> Posts { get; set; } = new List<Post>();
+        public List<Post> FilteredPosts { get; set; } = new List<Post>();
 
         public async Task<Post> AddPost(Post post)
         {
@@ -24,6 +27,17 @@ namespace UNFORGOTTEN.Client.Services.PostService
             await _http.PostAsJsonAsync<Post>("api/Posts", post);
             return post;
         }
+
+
+
+        public void FilterPosts(string searchAuthor)
+        {
+            if (string.IsNullOrWhiteSpace(searchAuthor))
+                FilteredPosts = Posts;
+            else
+                FilteredPosts = Posts.Where(p => p.Author.Contains(searchAuthor, StringComparison.OrdinalIgnoreCase)).ToList();
+        }
+
 
         public async Task GetPosts()
         {

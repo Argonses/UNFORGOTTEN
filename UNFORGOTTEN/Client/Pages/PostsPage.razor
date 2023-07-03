@@ -1,4 +1,5 @@
 ﻿@page "/postsPage"
+@using UNFORGOTTEN.Shared
 @inject IPostService PostService
 
 <h3>PostsPage</h3>
@@ -6,7 +7,14 @@
 <a href="/addPage" class="btn btn-success">Add Post</a>
 
 <div class="row mt-3">
-    @foreach (var post in PostService.Posts)
+    <div class="col-md-6">
+        <input type="text" class="form-control" placeholder="Search by Author" @bind="@searchAuthor"><br />
+        <button class="btn btn-primary" @onclick="FilterPosts">Search</button>
+    </div>
+</div>
+
+<div class="row mt-3">
+    @foreach (var post in PostService.FilteredPosts)
     {
         <div class="col-md-6">
             <div class="card mb-3">
@@ -22,8 +30,17 @@
 </div>
 
 @code {
+    private string searchAuthor = string.Empty;
+
     protected override async Task OnInitializedAsync()
     {
         await PostService.GetPosts();
+        PostService.FilteredPosts = PostService.Posts;
+    }
+
+    private void FilterPosts()
+    {
+        PostService.FilterPosts(searchAuthor); 
     }
 }
+
