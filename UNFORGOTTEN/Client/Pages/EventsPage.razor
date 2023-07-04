@@ -1,0 +1,34 @@
+﻿@page "/eventsPage"
+@inject HttpClient http
+
+<h3>EventsPage</h3>
+
+<div class="row">
+    @foreach (var @event in Events)
+    {
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <img src="@event.ImageUrl" class="card-img-top" alt="Event Image">
+                <div class="card-body">
+                    <h5 class="card-title">@event.Name</h5>
+                    <p class="card-text">@event.Description</p>
+                    <p class="card-text">Location: @event.Location</p>
+                    <p class="card-text">Date: @event.Date.ToString("yyyy-MM-dd")</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+List<Event> Events = new List<Event>();
+
+protected override async Task OnInitializedAsync()
+{
+    var result = await http.GetFromJsonAsync<List<Event>>("api/Events");
+    if (result != null)
+    {
+    Events = result;
+    }
+}
+}

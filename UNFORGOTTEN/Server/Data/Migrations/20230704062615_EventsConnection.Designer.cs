@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UNFORGOTTEN.Server.Data;
 
@@ -11,13 +12,15 @@ using UNFORGOTTEN.Server.Data;
 namespace UNFORGOTTEN.Server.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230704062615_EventsConnection")]
+    partial class EventsConnection
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.8")
+                .HasAnnotation("ProductVersion", "7.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -414,62 +417,6 @@ namespace UNFORGOTTEN.Server.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Events");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Date = new DateTime(2023, 7, 6, 11, 38, 35, 787, DateTimeKind.Local).AddTicks(871),
-                            Description = "Join our virtual book club where we read and discuss books in a relaxed and quiet environment.",
-                            ImageUrl = "https://www.booksmith.com/sites/booksmith.com/files/SRP.jpg",
-                            Location = "Online",
-                            Name = "Quiet Book Club"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Date = new DateTime(2023, 7, 8, 11, 38, 35, 787, DateTimeKind.Local).AddTicks(922),
-                            Description = "Grab your favorite snacks, cozy up on the couch, and enjoy a movie night designed for introverts.",
-                            ImageUrl = "https://img.ehowcdn.com/375/cme-data/getty%2F654b900913884eb3bb30af5cdfa25c37.jpg",
-                            Location = "Your Living Room",
-                            Name = "Introvert's Movie Night"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Date = new DateTime(2023, 7, 10, 11, 38, 35, 787, DateTimeKind.Local).AddTicks(924),
-                            Description = "Unleash your creativity in a peaceful setting and join our writing workshop for introverts.",
-                            ImageUrl = "https://www.strathmore.org/media/twtlc1kp/creative-writing-workshop.jpg",
-                            Location = "Quiet Café",
-                            Name = "Creative Writing Workshop"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Date = new DateTime(2023, 7, 12, 11, 38, 35, 787, DateTimeKind.Local).AddTicks(926),
-                            Description = "Embark on a peaceful nature walk designed for introverts to enjoy the beauty of the outdoors in solitude.",
-                            ImageUrl = "https://i.redd.it/has7cip5ley31.jpg",
-                            Location = "Tranquil Forest",
-                            Name = "Nature Walk for Introverts"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Date = new DateTime(2023, 7, 14, 11, 38, 35, 787, DateTimeKind.Local).AddTicks(928),
-                            Description = "Unleash your creativity and join our art workshop tailored for introverts to express themselves through art.",
-                            ImageUrl = "https://www.artmajeur.com/medias/standard/b/h/bhdigitalart/artwork/10599379_time-to-introvert2.jpg",
-                            Location = "Cozy Art Studio",
-                            Name = "Introvert's Art Workshop"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Date = new DateTime(2023, 7, 16, 11, 38, 35, 787, DateTimeKind.Local).AddTicks(930),
-                            Description = "Connect with fellow introverts in a relaxed and intimate setting to build meaningful connections.",
-                            ImageUrl = "https://bizzabo.com/wp-content/uploads/2021/09/Networking-event-examples-Salesforce-min.png",
-                            Location = "Quiet Café",
-                            Name = "Introvert Networking Evening"
-                        });
                 });
 
             modelBuilder.Entity("UNFORGOTTEN.Shared.Post", b =>

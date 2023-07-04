@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Identity;
 using UNFORGOTTEN.Server.Services.PostService;
 using Microsoft.OpenApi.Models;
 using UNFORGOTTEN.Server.Hubs;
+using Duende.IdentityServer.Services;
+using UNFORGOTTEN.Server.Services.EventService;
+using IEventService = UNFORGOTTEN.Server.Services.EventService.IEventService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,8 +37,8 @@ builder.Services.AddResponseCompression(options =>
     .Concat(new[] { "application/octet-stream" })
 );
 builder.Services.AddScoped<IPostService, PostService>();
+builder.Services.AddScoped<IEventService, EventService>();
 
-// Configure Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
