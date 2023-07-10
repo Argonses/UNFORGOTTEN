@@ -1,0 +1,36 @@
+﻿@page "/events"
+@inject IEventService EventService
+
+<h3>Events</h3>
+
+@if (EventService.Events != null)
+{
+    <div class="row">
+        @foreach (var @event in EventService.Events)
+        {
+            <div class="col-md-4">
+                <div class="card mb-3">
+                    <img src="@event.ImageUrl" class="card-img-top" alt="Event Image">
+                    <div class="card-body">
+                        <h5 class="card-title">@event.Name</h5>
+                        <p class="card-text">@event.Description</p>
+                        <p class="card-text">Location: @event.Location</p>
+                        <p class="card-text">Date: @event.Date.ToString("yyyy-MM-dd")</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <span>Loading events...</span>
+}
+
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await EventService.GetEvents();
+    }
+}

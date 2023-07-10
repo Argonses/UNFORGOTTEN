@@ -39,16 +39,22 @@
             </AuthorizeView>
         </div>
         <div class="nav-item px-3">
-            <AuthorizeView>
-                <Authorized>
-                    <NavLink class="nav-link" href="/eventsPage">
-                        <span class="oi oi-people" aria-hidden="true"></span> Events Page
-                    </NavLink>
-                </Authorized>
-                <NotAuthorized>
-                    <span class="nav-link disabled">Log in to access Events Page</span>
-                </NotAuthorized>
-            </AuthorizeView>
+            <ErrorBoundary>
+                <AuthorizeView>
+                    <Authorized>
+                        <ErrorBoundary>
+                            <NavLink class="nav-link" href="/events">
+                                <span class="oi oi-people" aria-hidden="true"></span> Events Page
+                            </NavLink>
+                        </ErrorBoundary>
+                    </Authorized>
+                    <NotAuthorized>
+                        <ErrorBoundary>
+                            <span class="nav-link disabled">Log in to access Events Page</span>
+                        </ErrorBoundary>
+                    </NotAuthorized>
+                </AuthorizeView>
+            </ErrorBoundary>
         </div>
         <div class="nav-item px-3">
             <AuthorizeView>
